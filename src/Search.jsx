@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: 50%;
+  width: 30%;
   height: 5%;
   border: 1px solid white;
   border-radius: 25px;
@@ -29,7 +30,6 @@ const Input = styled.input`
 
 const IconButton = styled.i`
   display: flex;
-  justify-content: flex-end;
   align-self: center;
   cursor: pointer;
 
@@ -38,11 +38,12 @@ const IconButton = styled.i`
     color: goldenrod;
   }
 `;
+
 const Search = () => {
   const [input, setInput] = useState('');
   const handleChange = e => setInput(e.target.value);
   const fetchMovie = movie => {
-    console.log(movie);
+    axios.post('/api', { movie });
   };
 
   return (
@@ -51,6 +52,7 @@ const Search = () => {
         type="text"
         placeholder="Search for your favorite movie"
         onChange={handleChange}
+        onSubmit={() => fetchMovie(input)}
       />
       <IconButton
         className="fas fa-search"
